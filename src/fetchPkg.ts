@@ -11,11 +11,13 @@ import { Package } from "./Package";
 
 export const fetchPkg = async (
   name: string,
-  version: string,
   opts?: Readonly<Options>
 ): Promise<NodeJS.ReadableStream | undefined> => {
-  const { versions } = (await json(name, { ...opts })) as Package;
-  const packageVersion = versions[version];
+  const pkg = (await json(name, { ...opts })) as Package;
+  const versionToFetch = (opts && opts.version) || pkg["dist-tags"].latest;
+  const version = pkg.versions[versionToFetch];
 
-  return packageVersion && fetch(packageVersion.dist.tarball, { ...opts }).then(res => res.body);
+  return (
+    version && fetch(version.dist.tarball, { ...opts }).then(res => res.body)
+  );
 };

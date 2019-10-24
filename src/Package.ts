@@ -5,6 +5,10 @@
  * found in the LICENSE.md file.
  */
 
+interface DistTags extends Record<string, string> {
+  latest: string;
+}
+
 interface Version {
   dist: {
     integrity: string;
@@ -17,4 +21,5 @@ export interface Package extends Record<string, unknown> {
   name: string;
   description: string;
   versions: Record<string, Version>;
+  "dist-tags": DistTags;
 }

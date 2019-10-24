@@ -8,4 +8,5 @@
 export interface Options {
   registry?: string;
   token?: string;
+  version?: string;
 }
