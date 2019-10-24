@@ -1,5 +1,7 @@
 # fetch-pkg
 
+Fetch Node.js packages from any npm-compatible registries.
+
 ## Installation
 
 ```shell
