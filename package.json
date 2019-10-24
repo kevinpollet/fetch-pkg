@@ -20,7 +20,7 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "build": "rm -rf lib && tsc -p tsconfig.json",
-    "format": "prettier --write '*.{json,md}' 'src/**'"
+    "format": "prettier --write '**/*.{ts,json,md,yml}' '!lib/**'"
   },
   "dependencies": {
     "npm-registry-fetch": "^5.0.0"
