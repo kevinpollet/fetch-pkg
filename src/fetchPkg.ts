@@ -13,7 +13,16 @@ export const fetchPkg = async (
   name: string,
   opts?: Readonly<Options>
 ): Promise<NodeJS.ReadableStream | undefined> => {
-  const pkg = (await json(name, { ...opts })) as Package;
+  let pkg;
+  try {
+    pkg = (await json(name, { ...opts })) as Package;
+  } catch(err) {
+    if (err.statusCode === 404) {
+      return undefined;
+    }
+    throw err;
+  }
+
   const versionToFetch = (opts && opts.version) || pkg["dist-tags"].latest;
   const version = pkg.versions[versionToFetch];
 
