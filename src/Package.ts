@@ -13,10 +13,8 @@ interface Version {
   };
 }
 
-export interface PkgMetadata {
+export interface Package extends Record<string, unknown> {
   name: string;
   description: string;
   versions: Record<string, Version>;
-
-  [k: string]: unknown;
 }
