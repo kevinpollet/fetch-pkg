@@ -1,0 +1,34 @@
+{
+  "name": "fetch-pkg",
+  "description": "Fetch a package from registry",
+  "version": "0.0.0",
+  "author": "kevinpollet <pollet.kevin@gmail.com>",
+  "license": "MIT",
+  "repository": "github:kevinpollet/fetch-pkg",
+  "bugs": "https://github.com/kevinpollet/fetch-pkg/issues",
+  "homepage": "https://github.com/kevinpollet/fetch-pkg#readme",
+  "keywords": [
+    "fetch",
+    "package",
+    "registry",
+    "npm"
+  ],
+  "files": [
+    "lib"
+  ],
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "rm -rf lib && tsc -p tsconfig.json",
+    "format": "prettier --write '*.{json,md}' 'src/**'"
+  },
+  "dependencies": {
+    "npm-registry-fetch": "^5.0.0"
+  },
+  "devDependencies": {
+    "@kevinpollet/tsconfig": "^0.1.0",
+    "@types/npm-registry-fetch": "^4.0.1",
+    "prettier": "1.18.2",
+    "typescript": "^3.6.4"
+  }
+}
