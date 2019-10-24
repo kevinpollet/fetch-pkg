@@ -12,7 +12,7 @@ Fetch Node.js packages from any npm-compatible registries.
 
 ```shell
 $ npm install fetch-pkg --save   # npm
-$ yarn add fetch-pkg             # yarn
+$ yarn add fetch-pkg             # Yarn
 ```
 
 ## Usage
@@ -29,7 +29,7 @@ const errorHandler = (err: Error) => {
 fetchPkg("fastify")
   .then(stream =>
     stream
-      .pipe(fs.createWriteStream("express.tgz"))
+      .pipe(fs.createWriteStream("fastify.tgz"))
       .once("error", errorHandler)
       .once("finish", () => process.exit(0))
   )
