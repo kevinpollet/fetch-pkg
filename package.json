@@ -21,7 +21,8 @@
   "scripts": {
     "build": "rm -rf lib && tsc -p tsconfig.json",
     "format": "prettier --write '**/*.{ts,json,md,yml}' '!lib/**'",
-    "format:check": "prettier --check '**/*.{ts,json,md,yml}' '!lib/**'"
+    "format:check": "prettier --check '**/*.{ts,json,md,yml}' '!lib/**'",
+    "lint": "eslint 'src/**'"
   },
   "dependencies": {
     "npm-registry-fetch": "^5.0.0"
@@ -29,7 +30,28 @@
   "devDependencies": {
     "@kevinpollet/tsconfig": "^0.1.0",
     "@types/npm-registry-fetch": "^4.0.1",
+    "@typescript-eslint/eslint-plugin": "^2.5.0",
+    "@typescript-eslint/parser": "^2.5.0",
+    "eslint": "^6.5.1",
+    "eslint-config-prettier": "^6.4.0",
     "prettier": "1.18.2",
     "typescript": "^3.6.4"
+  },
+  "eslintConfig": {
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "project": "./tsconfig.json"
+    },
+    "plugins": [
+      "@typescript-eslint"
+    ],
+    "extends": [
+      "eslint:recommended",
+      "plugin:@typescript-eslint/eslint-recommended",
+      "plugin:@typescript-eslint/recommended",
+      "plugin:@typescript-eslint/recommended-requiring-type-checking",
+      "prettier",
+      "prettier/@typescript-eslint"
+    ]
   }
 }
