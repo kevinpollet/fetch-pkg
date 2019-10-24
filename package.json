@@ -22,7 +22,8 @@
     "build": "rm -rf lib && tsc -p tsconfig.json",
     "format": "prettier --write '**/*.{ts,json,md,yml}' '!lib/**'",
     "format:check": "prettier --check '**/*.{ts,json,md,yml}' '!lib/**'",
-    "lint": "eslint 'src/**'"
+    "lint": "eslint 'src/**'",
+    "prepare": "npm run build"
   },
   "dependencies": {
     "npm-registry-fetch": "^5.0.0"
