@@ -1,5 +1,5 @@
 {
-  "name": "fetch-pkg",
+  "name": "fetch-package",
   "description": "Fetch a package from registry",
   "version": "0.0.0",
   "author": "kevinpollet <pollet.kevin@gmail.com>",
