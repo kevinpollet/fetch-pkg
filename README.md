@@ -6,7 +6,7 @@
 [![Code Style: Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 [![License](https://img.shields.io/github/license/kevinpollet/fetch-pkg)](./LICENSE.md)
 
-Fetch Node.js packages from any npm-compatible registries.
+Fetch [Node.js](https://nodejs.org/) packages from any npm-compatible registries.
 
 ## Installation
 
@@ -22,6 +22,27 @@ import fs from "fs";
 import { fetchPkg } from "fetch-pkg";
 
 fetchPkg("fastify")
+  .then(stream =>
+    stream
+      .pipe(fs.createWriteStream("fastify.tgz"))
+      .once("finish", () => process.exit(0))
+  )
+  .catch(err => {
+    console.error(err);
+    process.exit(1);
+  });
+```
+
+By default, packages are fetched from the [npm](https://www.npmjs.com/) registry (https://registry.npmjs.org/). For example, to fetch a package from the GitHub Package Registry, [generate an access token](https://help.github.com/en/github/managing-packages-with-github-package-registry/configuring-npm-for-use-with-github-package-registry#authenticating-to-github-package-registry) and use the following code.
+
+```typescript
+import fs from "fs";
+import { fetchPkg } from "fetch-pkg";
+
+fetchPkg("@codertocat/hello-world-npm", {
+  registry: "https://npm.pkg.github.com",
+  token: "xxxxxx"
+})
   .then(stream =>
     stream
       .pipe(fs.createWriteStream("fastify.tgz"))
