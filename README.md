@@ -43,15 +43,21 @@ fetchPkg("@codertocat/hello-world-npm", {
   registry: "https://npm.pkg.github.com",
   token: "xxxxxx"
 })
-  .then(stream =>
-    stream
-      .pipe(fs.createWriteStream("fastify.tgz"))
-      .once("finish", () => process.exit(0))
-  )
-  .catch(err => {
-    console.error(err);
-    process.exit(1);
-  });
+  .then(stream => ...);
+```
+
+By default, the `latest` version is fetched from the package registry. To fetch a specific version, use the `version` options with a fixed version or a valid [semver range](https://github.com/npm/node-semver#ranges).
+
+```typescript
+import fs from "fs";
+import { fetchPkg } from "fetch-pkg";
+
+fetchPkg("@codertocat/hello-world-npm", {
+  version: "^1.0.0",
+  registry: "https://npm.pkg.github.com",
+  token: "xxxxxx"
+})
+  .then(stream => ...)
 ```
 
 ## Contributing
