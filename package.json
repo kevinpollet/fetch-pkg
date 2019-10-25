@@ -27,11 +27,13 @@
     "release": "standard-version -s"
   },
   "dependencies": {
-    "npm-registry-fetch": "^5.0.0"
+    "npm-registry-fetch": "^5.0.0",
+    "semver": "^6.3.0"
   },
   "devDependencies": {
     "@kevinpollet/tsconfig": "^0.1.0",
     "@types/npm-registry-fetch": "^4.0.1",
+    "@types/semver": "^6.0.2",
     "@typescript-eslint/eslint-plugin": "^2.5.0",
     "@typescript-eslint/parser": "^2.5.0",
     "eslint": "^6.5.1",

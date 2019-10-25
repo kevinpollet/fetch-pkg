@@ -7,6 +7,6 @@
 
 export class PackageVersionNotFoundError extends Error {
   constructor(name: string, version: string) {
-    super(`Package version '${name}@${version}' cannot be found`);
+    super(`Package '${name}' with version '${version}' cannot be found`);
   }
 }

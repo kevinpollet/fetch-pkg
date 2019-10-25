@@ -6,7 +6,7 @@
  */
 
 export interface Options {
+  version?: string;
   registry?: string;
   token?: string;
-  version?: string;
 }

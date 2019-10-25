@@ -6,6 +6,7 @@
  */
 
 import fetch, { json } from "npm-registry-fetch";
+import { maxSatisfying } from "semver";
 import { Options } from "./Options";
 import { Package } from "./Package";
 import { PackageNotFoundError } from "./PackageNotFoundError";
@@ -22,10 +23,18 @@ export const fetchPkg = async (
     throw err.statusCode === 404 ? new PackageNotFoundError(name) : err;
   }
 
-  const versionToFetch = (opts && opts.version) || pkg["dist-tags"].latest;
-  const version = pkg.versions[versionToFetch];
+  const versionNumbers = Object.keys(pkg.versions);
+  const versionNumber =
+    opts && opts.version
+      ? maxSatisfying(versionNumbers, opts.version)
+      : pkg["dist-tags"].latest;
+
+  const version = versionNumber && pkg.versions[versionNumber];
   if (!version) {
-    throw new PackageVersionNotFoundError(name, versionToFetch);
+    throw new PackageVersionNotFoundError(
+      name,
+      (opts && opts.version) || "latest"
+    );
   }
 
   return fetch(version.dist.tarball, { ...opts }).then(res => res.body);
