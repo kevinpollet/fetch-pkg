@@ -21,19 +21,16 @@ $ yarn add fetch-pkg             # Yarn
 import fs from "fs";
 import { fetchPkg } from "fetch-pkg";
 
-const errorHandler = (err: Error) => {
-  console.error(err);
-  process.exit(1);
-};
-
 fetchPkg("fastify")
   .then(stream =>
     stream
       .pipe(fs.createWriteStream("fastify.tgz"))
-      .once("error", errorHandler)
       .once("finish", () => process.exit(0))
   )
-  .catch(errorHandler);
+  .catch(err => {
+    console.error(err);
+    process.exit(1);
+  });
 ```
 
 ## License
