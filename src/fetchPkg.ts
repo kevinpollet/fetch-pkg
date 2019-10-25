@@ -9,6 +9,7 @@ import fetch, { json } from "npm-registry-fetch";
 import { Options } from "./Options";
 import { Package } from "./Package";
 import { PackageNotFoundError } from "./PackageNotFoundError";
+import { PackageVersionNotFoundError } from "./PackageVersionNotFoundError";
 
 export const fetchPkg = async (
   name: string,
@@ -24,7 +25,7 @@ export const fetchPkg = async (
   const versionToFetch = (opts && opts.version) || pkg["dist-tags"].latest;
   const version = pkg.versions[versionToFetch];
   if (!version) {
-    throw new PackageNotFoundError(name);
+    throw new PackageVersionNotFoundError(name, versionToFetch);
   }
 
   return fetch(version.dist.tarball, { ...opts }).then(res => res.body);
