@@ -6,7 +6,7 @@
 [![Code Style: Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 [![License](https://img.shields.io/github/license/kevinpollet/fetch-pkg)](./LICENSE.md)
 
-Fetch [Node.js](https://nodejs.org/) packages from any npm-compatible registries.
+Fetch packages from any npm-compatible registries.
 
 ## Installation
 
