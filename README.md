@@ -1,4 +1,4 @@
-# fetch-pkg
+# fetch-pkg <!-- omit in toc -->
 
 [![Build Status](https://github.com/kevinpollet/fetch-pkg/workflows/build/badge.svg)](https://github.com/kevinpollet/fetch-pkg/actions)
 [![npm Latest Version](https://img.shields.io/npm/v/fetch-pkg/latest)](https://www.npmjs.com/package/fetch-pkg)
@@ -7,6 +7,16 @@
 [![License](https://img.shields.io/github/license/kevinpollet/fetch-pkg)](./LICENSE.md)
 
 Fetch packages from any npm-compatible registries.
+
+<details>
+  <summary><strong>Table of Contents</strong> (click to expand)</summary>
+
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+
+</details>
 
 ## Installation
 
