@@ -13,6 +13,7 @@ Fetch packages from any npm-compatible registries.
 
 - [Installation](#installation)
 - [Usage](#usage)
+- [API](#api)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -43,32 +44,36 @@ fetchPkg("fastify")
   });
 ```
 
-By default, packages are fetched from the [npm](https://www.npmjs.com/) registry (https://registry.npmjs.org/). For example, to fetch a package from the GitHub Package Registry, [generate an access token](https://help.github.com/en/github/managing-packages-with-github-package-registry/configuring-npm-for-use-with-github-package-registry#authenticating-to-github-package-registry) and use the following code.
+## API
 
-```typescript
-import fs from "fs";
-import { fetchPkg } from "fetch-pkg";
+#### `fetchPkg(name: string, opts?: Options): Promise<NodeJS.ReadableStream>` <!-- omit in toc -->
 
-fetchPkg("@codertocat/hello-world-npm", {
-  registry: "https://npm.pkg.github.com",
-  token: "xxxxxx"
-})
-  .then(stream => ...);
-```
+Fetch a package from an npm-compatible registry and return a tarball stream. By default, the `latest` package version is fetched from the [npm](https://www.npmjs.com/) registry: https://registry.npmjs.org/.
 
-By default, the `latest` version is fetched from the package registry. To fetch a specific version, use the `version` options with a fixed version or a valid [semver range](https://github.com/npm/node-semver#ranges).
+#### `Options` <!-- omit in toc -->
 
-```typescript
-import fs from "fs";
-import { fetchPkg } from "fetch-pkg";
+##### registry <!-- omit in toc -->
 
-fetchPkg("@codertocat/hello-world-npm", {
-  version: "^1.0.0",
-  registry: "https://npm.pkg.github.com",
-  token: "xxxxxx"
-})
-  .then(stream => ...)
-```
+- Type: `string`
+- Default: `https://registry.npmjs.org/`
+- Required: `false`
+
+The package registry URl. For example, to fetch a package from the GitHub Package Registry you should use https://npm.pkg.github.com.
+
+##### token <!-- omit in toc -->
+
+- Type: `string`
+- Required: `false`
+
+The authentication token.
+
+##### version <!-- omit in toc -->
+
+- Type: `string`
+- Default: `latest`
+- Required: `false`
+
+The package version to fetch or a valid [semver range](https://github.com/npm/node-semver#ranges).
 
 ## Contributing
 
