@@ -6,3 +6,6 @@
  */
 
 export { fetchPkg } from "./fetchPkg";
+export { FetchPkgError } from "./FetchPkgError";
+export { PackageNotFoundError } from "./PackageNotFoundError";
+export { PackageVersionNotFoundError } from "./PackageVersionNotFoundError";

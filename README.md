@@ -52,7 +52,7 @@ Fetch a package from an npm-compatible registry and return a tarball stream. By 
 
 #### `Options` <!-- omit in toc -->
 
-##### registry <!-- omit in toc -->
+##### registryURL <!-- omit in toc -->
 
 - Type: `string`
 - Default: `https://registry.npmjs.org/`

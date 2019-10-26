@@ -5,8 +5,4 @@
  * found in the LICENSE.md file.
  */
 
-export interface Options {
-  version?: string;
-  registryURL?: string;
-  token?: string;
-}
+declare module "make-fetch-happen";

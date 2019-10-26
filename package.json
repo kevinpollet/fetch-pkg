@@ -19,27 +19,32 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "rm -rf lib && tsc -p tsconfig.json",
+    "build": "rm -rf lib && tsc -p tsconfig.build.json",
     "format": "prettier --write '**/*.{ts,json,md,yml}' '!lib/**'",
     "format:check": "prettier --check '**/*.{ts,json,md,yml}' '!lib/**'",
     "lint": "eslint 'src/**'",
     "prepare": "npm run build",
-    "release": "standard-version -s"
+    "release": "standard-version -s",
+    "test": "jest --preset ts-jest"
   },
   "dependencies": {
-    "npm-registry-fetch": "^5.0.0",
+    "@types/node": "^8.10.56",
+    "make-fetch-happen": "^6.0.1",
     "semver": "^6.3.0"
   },
   "devDependencies": {
     "@kevinpollet/tsconfig": "^0.1.0",
-    "@types/npm-registry-fetch": "^4.0.1",
+    "@types/jest": "^24.0.20",
     "@types/semver": "^6.0.2",
     "@typescript-eslint/eslint-plugin": "^2.5.0",
     "@typescript-eslint/parser": "^2.5.0",
     "eslint": "^6.5.1",
     "eslint-config-prettier": "^6.4.0",
+    "jest": "^24.9.0",
+    "nock": "^11.6.0",
     "prettier": "1.18.2",
     "standard-version": "^7.0.0",
+    "ts-jest": "^24.1.0",
     "typescript": "^3.6.4"
   },
   "eslintConfig": {

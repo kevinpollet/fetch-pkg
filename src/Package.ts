@@ -5,21 +5,11 @@
  * found in the LICENSE.md file.
  */
 
-interface DistTags extends Record<string, string> {
-  latest: string;
-}
-
-interface Version {
-  dist: {
-    integrity: string;
-    shasum: string;
-    tarball: string;
-  };
-}
-
-export interface Package extends Record<string, unknown> {
+export interface Package {
   name: string;
   description: string;
-  versions: Record<string, Version>;
-  "dist-tags": DistTags;
+  versions: Record<string, { dist: { tarball: string } }>;
+  "dist-tags": Record<string, string>;
+
+  [k: string]: unknown;
 }
