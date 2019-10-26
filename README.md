@@ -73,7 +73,7 @@ The authentication token.
 - Default: `latest`
 - Required: `false`
 
-The package version to fetch or a valid [semver range](https://github.com/npm/node-semver#ranges).
+The package version to fetch, a valid [semver range](https://github.com/npm/node-semver#ranges) or a [dist tag](https://docs.npmjs.com/cli/dist-tag).
 
 ## Contributing
 
