@@ -25,7 +25,8 @@
     "lint": "eslint 'src/**'",
     "prepare": "npm run build",
     "release": "standard-version -s",
-    "test": "jest --preset ts-jest"
+    "test": "jest --preset ts-jest",
+    "test:coverage": "rm -rf coverage && jest --preset ts-jest --coverage"
   },
   "dependencies": {
     "@types/node": "^8.10.56",
