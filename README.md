@@ -1,6 +1,7 @@
 # fetch-pkg <!-- omit in toc -->
 
 [![Build Status](https://github.com/kevinpollet/fetch-pkg/workflows/build/badge.svg)](https://github.com/kevinpollet/fetch-pkg/actions)
+[![Coverage Status](https://coveralls.io/repos/github/kevinpollet/fetch-pkg/badge.svg)](https://coveralls.io/github/kevinpollet/fetch-pkg)
 [![npm Latest Version](https://img.shields.io/npm/v/fetch-pkg/latest)](https://www.npmjs.com/package/fetch-pkg)
 [![npm Downloads](https://img.shields.io/npm/dm/fetch-pkg)](https://www.npmjs.com/package/fetch-pkg)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
