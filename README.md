@@ -46,7 +46,7 @@ fetchPkg("fastify")
 
 ## API
 
-### fetchPkg(name: string, opts?: Options): Promise<NodeJS.ReadableStream> <!-- omit in toc -->
+### fetchPkg(name: string, opts?: [Options](#options)): Promise<NodeJS.ReadableStream> <!-- omit in toc -->
 
 Fetch a package from an npm-compatible registry and return a tarball stream. By default, the `latest` package version is fetched from the [npm](https://www.npmjs.com/) registry: https://registry.npmjs.org/.
 
@@ -56,14 +56,12 @@ Fetch a package from an npm-compatible registry and return a tarball stream. By 
 
 - Type: `string`
 - Default: `https://registry.npmjs.org/`
-- Required: `false`
 
 The package registry URl. For example, to fetch a package from the GitHub Package Registry you should use https://npm.pkg.github.com.
 
 #### token <!-- omit in toc -->
 
 - Type: `string`
-- Required: `false`
 
 The authentication token.
 
@@ -71,7 +69,6 @@ The authentication token.
 
 - Type: `string`
 - Default: `latest`
-- Required: `false`
 
 The package version to fetch, a valid [semver range](https://github.com/npm/node-semver#ranges) or a [dist tag](https://docs.npmjs.com/cli/dist-tag).
 
