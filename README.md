@@ -7,6 +7,7 @@
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 [![Code Style: Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 [![License](https://img.shields.io/github/license/kevinpollet/fetch-pkg)](./LICENSE.md)
+[![Twitter Follow](https://img.shields.io/twitter/follow/kevinpollet?style=social)](https://twitter.com/kevinpollet)
 
 Fetch packages from any npm-compatible registries.
 
