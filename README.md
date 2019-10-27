@@ -59,7 +59,7 @@ Fetch a package from an npm-compatible registry and return a tarball stream. By 
 - Type: `string`
 - Default: `https://registry.npmjs.org/`
 
-The package registry URl. For example, to fetch a package from the GitHub Package Registry you should use https://npm.pkg.github.com.
+The package registry URL. For example, to fetch a package from the GitHub Package Registry you should use https://npm.pkg.github.com.
 
 #### token <!-- omit in toc -->
 
