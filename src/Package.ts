@@ -6,8 +6,6 @@
  */
 
 export interface Package {
-  name: string;
-  description: string;
   versions: Record<string, { dist: { tarball: string } }>;
   "dist-tags": Record<string, string>;
 

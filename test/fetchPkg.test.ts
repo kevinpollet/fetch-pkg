@@ -6,86 +6,186 @@
  */
 
 import nock from "nock";
-import { fetchPkg } from "../src/fetchPkg";
-import { PackageNotFoundError } from "../src/PackageNotFoundError";
-import { PackageVersionNotFoundError } from "../src/PackageVersionNotFoundError";
+import { escape } from "querystring";
+import { resolve } from "url";
+import { Package } from "../src/Package";
+import {
+  fetchPkg,
+  PackageNotFoundError,
+  PackageVersionNotFoundError,
+  FetchPkgError
+} from "../src";
 
 describe("fetchPkg", () => {
+  const pkgName = "awesome-package";
+  const scopedPkgName = "@scope/awesome-package";
   const npmRegistryURL = "https://registry.npmjs.org/";
+
+  const pkg = (registryURL?: string): Package => {
+    const tarball = resolve(registryURL || npmRegistryURL, "/tarball.tgz");
+
+    return {
+      "dist-tags": {
+        latest: "2.1.0",
+        beta: "2.0.0-beta.5"
+      },
+      versions: {
+        "2.1.0": { dist: { tarball } },
+        "2.0.0": { dist: { tarball } },
+        "2.0.0-beta.5": { dist: { tarball } }
+      }
+    };
+  };
+
+  afterEach(() => nock.cleanAll());
+
+  it("should fetch the latest version of the given package by default", () => {
+    const scope = nock(npmRegistryURL)
+      .get("/tarball.tgz")
+      .reply(200)
+      .get(`/${pkgName}`)
+      .reply(200, pkg());
+
+    return expect(fetchPkg(pkgName))
+      .resolves.toBeDefined()
+      .then(() => scope.done());
+  });
+
+  it("should fetch the latest version of the given scoped package by default", () => {
+    const scope = nock(npmRegistryURL)
+      .get("/tarball.tgz")
+      .reply(200)
+      .get(`/${escape(scopedPkgName)}`)
+      .reply(200, pkg());
+
+    return expect(fetchPkg(scopedPkgName))
+      .resolves.toBeDefined()
+      .then(() => scope.done());
+  });
+
+  it("should fetch the given package version", () => {
+    const scope = nock(npmRegistryURL)
+      .get("/tarball.tgz")
+      .reply(200)
+      .get(`/${pkgName}`)
+      .reply(200, pkg());
+
+    return expect(fetchPkg(pkgName, { version: "2.0.0" }))
+      .resolves.toBeDefined()
+      .then(() => scope.done());
+  });
+
+  it("should fetch the given package matching the version range", () => {
+    const scope = nock(npmRegistryURL)
+      .get("/tarball.tgz")
+      .reply(200)
+      .get(`/${pkgName}`)
+      .reply(200, pkg());
+
+    return expect(fetchPkg(pkgName, { version: "^2.0.0" }))
+      .resolves.toBeDefined()
+      .then(() => scope.done());
+  });
+
+  it("should fetch the given package dist tag version", () => {
+    const scope = nock(npmRegistryURL)
+      .get("/tarball.tgz")
+      .reply(200)
+      .get(`/${pkgName}`)
+      .reply(200, pkg());
+
+    return expect(fetchPkg(pkgName, { version: "beta" }))
+      .resolves.toBeDefined()
+      .then(() => scope.done());
+  });
+
+  it("should fetch the given package from the configured registry", () => {
+    const registryURL = "https://myregistry.org/";
+    const scope = nock(registryURL)
+      .get("/tarball.tgz")
+      .reply(200)
+      .get(`/${pkgName}`)
+      .reply(200, pkg(registryURL));
+
+    return expect(fetchPkg(pkgName, { registryURL }))
+      .resolves.toBeDefined()
+      .then(() => scope.done());
+  });
+
+  it("should fetch the given package with the configured token", () => {
+    const token = "dummy";
+    const scope = nock(npmRegistryURL, {
+      reqheaders: { authorization: `Bearer ${token}` }
+    })
+      .get("/tarball.tgz")
+      .reply(200)
+      .get(`/${pkgName}`)
+      .reply(200, pkg());
+
+    return expect(fetchPkg(pkgName, { token }))
+      .resolves.toBeDefined()
+      .then(() => scope.done());
+  });
 
   it("should throw an error if the given package does not exist", () => {
     const scope = nock(npmRegistryURL)
-      .get("/missing")
+      .get(`/${pkgName}`)
       .reply(404);
 
-    expect(fetchPkg("missing"))
+    return expect(fetchPkg(pkgName))
       .rejects.toThrowError(PackageNotFoundError)
-      .then(() => expect(scope.isDone()).toBeTruthy());
+      .then(() => scope.done());
   });
 
   it("should throw an error if the given package version does not exist", () => {
     const scope = nock(npmRegistryURL)
-      .get("/missing")
-      .reply(200, {
-        "dist-tags": { latest: "1.0.0" },
-        versions: { "1.0.0": {} }
-      });
+      .get(`/${pkgName}`)
+      .reply(200, pkg());
 
-    expect(fetchPkg("missing", { version: "1.0.1" }))
+    return expect(fetchPkg(pkgName, { version: "3.0.0" }))
       .rejects.toThrowError(PackageVersionNotFoundError)
-      .then(() => expect(scope.isDone()).toBeTruthy());
+      .then(() => scope.done());
   });
 
-  it("should fetch the latest version of the given package in the default registry", () => {
+  it("should throw an error if the given package dist tag version does not exist", () => {
     const scope = nock(npmRegistryURL)
-      .get("/dummy.tgz")
-      .reply(200)
-      .get("/dummy")
-      .reply(200, {
-        "dist-tags": { latest: "1.0.0" },
-        versions: {
-          "1.0.0": { dist: { tarball: `${npmRegistryURL}dummy.tgz` } }
-        }
-      });
+      .get(`/${pkgName}`)
+      .reply(200, pkg());
 
-    expect(fetchPkg("dummy"))
-      .resolves.toBeDefined()
-      .then(() => expect(scope.isDone()).toBeTruthy());
+    return expect(fetchPkg(pkgName, { version: "alpha" }))
+      .rejects.toThrowError(PackageVersionNotFoundError)
+      .then(() => scope.done());
   });
 
-  it("should fetch the given package in the configured registry", () => {
-    const registryURL = "https://myregistry.npmjs.org/";
-    const scope = nock(registryURL)
-      .get("/dummy.tgz")
-      .reply(200)
-      .get("/dummy")
-      .reply(200, {
-        "dist-tags": { latest: "1.0.0" },
-        versions: { "1.0.0": { dist: { tarball: `${registryURL}dummy.tgz` } } }
-      });
+  it("should throw an error if the given package version range does not match a version", () => {
+    const scope = nock(npmRegistryURL)
+      .get(`/${pkgName}`)
+      .reply(200, pkg());
 
-    expect(fetchPkg("dummy", { registryURL }))
-      .resolves.toBeDefined()
-      .then(() => expect(scope.isDone()).toBeTruthy());
+    return expect(fetchPkg(pkgName, { version: "^3.0.0" }))
+      .rejects.toThrowError(PackageVersionNotFoundError)
+      .then(() => scope.done());
   });
 
-  it("should fetch the given package in the configured registry with the configured token", () => {
-    const token = "dsgfjkguiegzigfoighflhsjfpodusfueeh82678";
-    const scope = nock(npmRegistryURL, {
-      reqheaders: { authorization: `Bearer ${token}` }
-    })
-      .get("/dummy.tgz")
-      .reply(200)
-      .get("/dummy")
-      .reply(200, {
-        "dist-tags": { latest: "1.0.0" },
-        versions: {
-          "1.0.0": { dist: { tarball: `${npmRegistryURL}dummy.tgz` } }
-        }
-      });
+  it("should throw an error if the package cannot be fetched", () => {
+    const scope = nock(npmRegistryURL)
+      .get(`/${pkgName}`)
+      .reply(401);
 
-    expect(fetchPkg("dummy", { token }))
-      .resolves.toBeDefined()
-      .then(() => expect(scope.isDone()).toBeTruthy());
+    return expect(fetchPkg(pkgName))
+      .rejects.toThrowError(FetchPkgError)
+      .then(() => scope.done());
+  });
+
+  it("should throw an error if the package tarball cannot be fetched", () => {
+    const scope = nock(npmRegistryURL)
+      .get("/tarball.tgz")
+      .reply(404)
+      .get(`/${pkgName}`)
+      .reply(200, pkg());
+
+    return expect(fetchPkg(pkgName))
+      .rejects.toThrowError(FetchPkgError)
+      .then(() => scope.done());
   });
 });
