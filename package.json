@@ -1,7 +1,7 @@
 {
   "name": "fetch-pkg",
   "description": "Fetch packages from any npm-compatible registries",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "author": "kevinpollet <pollet.kevin@gmail.com>",
   "license": "MIT",
   "repository": "github:kevinpollet/fetch-pkg",
