@@ -23,7 +23,10 @@ export const fetchPkg = async (
   const version = opts.version || "latest";
   const registryURL = opts.registryURL || "https://registry.npmjs.org/";
   const fetch = makeFetch.defaults({
-    headers: { authorization: opts.token && `Bearer ${opts.token}` }
+    headers: {
+      accept: "application/vnd.npm.install-v1+json",
+      authorization: opts.token && `Bearer ${opts.token}`
+    }
   });
 
   const pkg: Package = await fetch(resolve(registryURL, encodedName)).then(
