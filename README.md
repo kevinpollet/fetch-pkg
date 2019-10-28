@@ -93,7 +93,7 @@ The package version to fetch, a valid [semver range](https://github.com/npm/node
 
 - `FetchPkgError`: This error is thrown when something went wrong with the HTTP requests.
 - `PackageNotFoundError`: This error is thrown when the given package name cannot be found.
-- `PackageVersionNotFoundError`: This error is thrown when the given package name version cannot be found.
+- `PackageVersionNotFoundError`: This error is thrown when the given package version cannot be found.
 
 ## Contributing
 
