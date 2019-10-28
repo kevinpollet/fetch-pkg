@@ -22,17 +22,22 @@ describe("fetchPkg", () => {
   const npmRegistryURL = "https://registry.npmjs.org/";
 
   const pkg = (registryURL?: string): Package => {
-    const tarball = resolve(registryURL || npmRegistryURL, "/tarball.tgz");
+    const dist = {
+      integrity: "",
+      shasum: "",
+      tarball: resolve(registryURL || npmRegistryURL, "/tarball.tgz")
+    };
 
     return {
+      name: pkgName,
       "dist-tags": {
         latest: "2.1.0",
         beta: "2.0.0-beta.5"
       },
       versions: {
-        "2.1.0": { dist: { tarball } },
-        "2.0.0": { dist: { tarball } },
-        "2.0.0-beta.5": { dist: { tarball } }
+        "2.1.0": { name: pkgName, version: "2.1.0", dist },
+        "2.0.0": { name: pkgName, version: "2.0.0", dist },
+        "2.0.0-beta.5": { name: pkgName, version: "2.0.0-beta.5", dist }
       }
     };
   };

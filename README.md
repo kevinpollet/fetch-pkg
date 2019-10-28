@@ -35,10 +35,10 @@ $ yarn add fetch-pkg             # Yarn
 import fs from "fs";
 import { fetchPkg } from "fetch-pkg";
 
-fetchPkg("fastify")
-  .then(stream =>
-    stream
-      .pipe(fs.createWriteStream("fastify.tgz"))
+fetchPkg("fetch-pkg")
+  .then(pkg =>
+    pkg
+      .pipe(fs.createWriteStream("inception.tgz"))
       .once("finish", () => process.exit(0))
   )
   .catch(err => {
@@ -49,9 +49,23 @@ fetchPkg("fastify")
 
 ## API
 
-### fetchPkg(name: string, opts?: [Options](#options)): Promise<NodeJS.ReadableStream> <!-- omit in toc -->
+### fetchPkg(name: string, opts?: [Options](#options)): Promise<[Pkg](#pkg)> <!-- omit in toc -->
 
 Fetch a package from an npm-compatible registry and return a tarball stream. By default, the `latest` package version is fetched from the [npm](https://www.npmjs.com/) registry: https://registry.npmjs.org/.
+
+### Pkg <!-- omit in toc -->
+
+#### name <!-- omit in toc -->
+
+- Type: `string`
+
+The fetched package name.
+
+#### version <!-- omit in toc -->
+
+- Type: `string`
+
+The fetched package version.
 
 ### Options <!-- omit in toc -->
 

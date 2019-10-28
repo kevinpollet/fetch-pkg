@@ -11,6 +11,7 @@ import { maxSatisfying } from "semver";
 import { resolve } from "url";
 import { Options } from "./Options";
 import { Package } from "./Package";
+import { Pkg } from "./Pkg";
 import { FetchPkgError } from "./FetchPkgError";
 import { PackageNotFoundError } from "./PackageNotFoundError";
 import { PackageVersionNotFoundError } from "./PackageVersionNotFoundError";
@@ -18,7 +19,7 @@ import { PackageVersionNotFoundError } from "./PackageVersionNotFoundError";
 export const fetchPkg = async (
   name: string,
   opts: Readonly<Options> = {}
-): Promise<NodeJS.ReadableStream> => {
+): Promise<Pkg> => {
   const encodedName = escape(name);
   const version = opts.version || "latest";
   const registryURL = opts.registryURL || "https://registry.npmjs.org/";
@@ -51,10 +52,14 @@ export const fetchPkg = async (
     }
   }
 
+  const { name: pkgName, version: pkgVersion, dist } = pkg.versions[
+    versionNumber
+  ];
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return fetch(pkg.versions[versionNumber].dist.tarball).then((res: any) =>
+  return fetch(dist.tarball).then((res: any) =>
     res.status !== 200
       ? Promise.reject(new FetchPkgError(res.status, res.statusText))
-      : res.body
+      : res.body.pipe(new Pkg(pkgName, pkgVersion))
   );
 };

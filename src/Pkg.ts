@@ -5,10 +5,10 @@
  * found in the LICENSE.md file.
  */
 
-import { PackageVersion } from "./PackageVersion";
+import { PassThrough } from "stream";
 
-export interface Package {
-  name: string;
-  "dist-tags": Record<string, string>;
-  versions: Record<string, PackageVersion>;
+export class Pkg extends PassThrough {
+  constructor(readonly name: string, readonly version: string) {
+    super();
+  }
 }

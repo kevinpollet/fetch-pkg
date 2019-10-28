@@ -5,10 +5,12 @@
  * found in the LICENSE.md file.
  */
 
-import { PackageVersion } from "./PackageVersion";
-
-export interface Package {
+export interface PackageVersion {
   name: string;
-  "dist-tags": Record<string, string>;
-  versions: Record<string, PackageVersion>;
+  version: string;
+  dist: {
+    integrity: string;
+    shasum: string;
+    tarball: string;
+  };
 }
