@@ -20,9 +20,14 @@ export const fetchPkg = async (
   name: string,
   opts: Readonly<Options> = {}
 ): Promise<Pkg> => {
-  const encodedName = escape(name);
-  const version = opts.version || "latest";
-  const registryURL = opts.registryURL || "https://registry.npmjs.org/";
+  const escapedName = escape(name);
+  const { version, registryURL } = Object.assign(
+    {
+      version: "latest",
+      registryURL: "https://registry.npmjs.org/"
+    },
+    opts
+  );
   const fetch = makeFetch.defaults({
     headers: {
       accept: "application/vnd.npm.install-v1+json",
@@ -30,7 +35,7 @@ export const fetchPkg = async (
     }
   });
 
-  const pkg: Package = await fetch(resolve(registryURL, encodedName)).then(
+  const pkg: Package = await fetch(resolve(registryURL, escapedName)).then(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (res: any) =>
       res.status === 200
