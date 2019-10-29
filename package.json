@@ -9,9 +9,14 @@
   "homepage": "https://github.com/kevinpollet/fetch-pkg#readme",
   "keywords": [
     "fetch",
+    "pkg",
     "package",
     "registry",
-    "npm"
+    "npm",
+    "github",
+    "download",
+    "metadata",
+    "tarball"
   ],
   "files": [
     "lib"
