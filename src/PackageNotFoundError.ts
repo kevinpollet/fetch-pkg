@@ -5,8 +5,10 @@
  * found in the LICENSE.md file.
  */
 
-export class PackageNotFoundError extends Error {
+import { FetchPkgError } from "./FetchPkgError";
+
+export class PackageNotFoundError extends FetchPkgError {
   constructor(name: string) {
-    super(`Package '${name}' cannot be found`);
+    super(404, `Package '${name}' cannot be found`);
   }
 }

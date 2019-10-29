@@ -6,12 +6,12 @@
  */
 
 export class FetchPkgError extends Error {
-  readonly status: number;
-  readonly statusText: string;
+  readonly statusCode: number;
+  readonly statusMessage: string;
 
-  constructor(status: number, statusText: string) {
-    super(`${status} ${statusText}`);
-    this.status = status;
-    this.statusText = statusText;
+  constructor(statusCode: number, statusMessage: string) {
+    super(`${statusCode} — ${statusMessage}`);
+    this.statusCode = statusCode;
+    this.statusMessage = statusMessage;
   }
 }
