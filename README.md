@@ -51,9 +51,11 @@ fetchPkg("fetch-pkg")
 
 ### fetchPkg(name: string, opts?: [Options](#options)): Promise<[Pkg](#pkg)> <!-- omit in toc -->
 
-Fetch a package from an npm-compatible registry and return a tarball stream. By default, the `latest` package version is fetched from the [npm](https://www.npmjs.com/) registry: https://registry.npmjs.org/.
+Fetch a package from an npm-compatible registry and return the fetch package metadata and tarball stream.
 
 ### Pkg <!-- omit in toc -->
+
+Extends: `stream.Readable`
 
 #### name <!-- omit in toc -->
 
