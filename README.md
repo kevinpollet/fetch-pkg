@@ -10,7 +10,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/kevinpollet/fetch-pkg?style=social)](https://github.com/kevinpollet/fetch-pkg/stargazers)
 [![Twitter Follow](https://img.shields.io/twitter/follow/kevinpollet?style=social)](https://twitter.com/kevinpollet)
 
-Fetch packages from any npm-compatible registries.
+Fetch packages from any npm-compatible registry.
 
 <details>
   <summary><strong>Table of Contents</strong> (click to expand)</summary>
