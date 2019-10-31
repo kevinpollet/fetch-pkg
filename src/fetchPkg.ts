@@ -21,17 +21,15 @@ export const fetchPkg = async (
   opts: Readonly<Options> = {}
 ): Promise<Pkg> => {
   const escapedName = escape(name);
-  const { version, registryURL } = Object.assign(
-    {
-      version: "latest",
-      registryURL: "https://registry.npmjs.org/"
-    },
-    opts
-  );
+  const { version, registryURL, token } = {
+    version: "latest",
+    registryURL: "https://registry.npmjs.org/",
+    ...opts
+  };
   const fetch = makeFetch.defaults({
     headers: {
       accept: "application/vnd.npm.install-v1+json",
-      authorization: opts.token && `Bearer ${opts.token}`
+      authorization: token && `Bearer ${token}`
     }
   });
 
