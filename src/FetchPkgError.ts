@@ -11,6 +11,7 @@ export class FetchPkgError extends Error {
 
   constructor(statusCode: number, statusMessage: string) {
     super(`${statusCode} — ${statusMessage}`);
+
     this.statusCode = statusCode;
     this.statusMessage = statusMessage;
   }
