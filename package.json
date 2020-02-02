@@ -27,7 +27,7 @@
     "build": "rm -rf lib && tsc -p tsconfig.build.json",
     "format": "prettier --write '**/*.{ts,json,md,yml}' '!lib/**'",
     "format:check": "prettier --check '**/*.{ts,json,md,yml}' '!lib/**'",
-    "lint": "eslint 'src/**'",
+    "lint": "eslint '{src,test}/**'",
     "prepare": "npm run build",
     "release": "standard-version -s",
     "test": "jest --preset ts-jest",
