@@ -26,8 +26,8 @@ Fetch packages from any npm-compatible registry.
 ## Installation
 
 ```shell
-$ npm install fetch-pkg --save   # npm
-$ yarn add fetch-pkg             # Yarn
+npm install --save fetch-pkg   # npm
+yarn add fetch-pkg             # Yarn
 ```
 
 ## Usage
@@ -111,4 +111,4 @@ Want to file a bug, request a feature or contribute some code?
 
 ## License
 
-[MIT](./LICENSE.md) © kevinpollet
+[MIT](./LICENSE.md)
